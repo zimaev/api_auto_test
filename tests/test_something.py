@@ -1,8 +1,12 @@
+import requests
+from configuration import SERVICE_URL
+from src.enums.global_enums import GlobalErrorMessages
 
 
-def test_eql():
-    assert 1 == 1, 'Не равно'
+def test_get_posts():
+    response = requests.get(url=SERVICE_URL)
+    received_posts = response.json()
+    assert response.status_code == 200, GlobalErrorMessages.WRONG_STATUS_CODE.value
+    assert len(received_posts) == 3, GlobalErrorMessages.WRONП_COUNT_POSTS.value
 
 
-def test_not_eql():
-    assert 1 == 2, "Ошибка равенства"
