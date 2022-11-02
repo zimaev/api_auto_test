@@ -12,9 +12,10 @@ class Response:
     def validate(self, schema):
         if isinstance(self.response_json, list):
             for post in self.response_json:
-                validate(post, schema)
+                schema.parse_obj(post)
         else:
-            validate(self.response_json, schema)
+            schema.parse_obj(self.response_json)
+        return self
 
     def assert_status_code(self, status_code):
 
